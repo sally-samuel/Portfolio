@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salome Onyinyechi Egwumba - Front-End Developer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js"></script>
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        function App() {
+            const [formData, setFormData] = React.useState({
+                name: '',
+                email: '',
+                message: ''
+            });
+            const [status, setStatus] = React.useState('');
+            const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
+            React.useEffect(() => {
+                AOS.init({ duration: 1000 });
+            }, []);
+
+            const handleChange = (e) => {
+                setFormData({ ...formData, [e.target.name]: e.target.value });
+            };
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', formData, 'YOUR_PUBLIC_KEY')
+                    .then(() => {
+                        setStatus('Message sent successfully!');
+                        setFormData({ name: '', email: '', message: '' });
+                    }, () => {
+                        setStatus('Failed to send message. Please try again.');
+                    });
+            };
+
+            const toggleMenu = () => {
+                setIsMenuOpen(!isMenuOpen);
+            };
+
+            return (
+                <div className="font-sans min-h-screen flex flex-col">
+                    {/* Navbar */}
+                    <nav className="bg-gray-800 text-white p-4 fixed w-full top-0 z-10">
+                        <div className="container mx-auto flex justify-between items-center">
+                            <h1 className="text-2xl font-bold">SALOME</h1>
+                            <div className="md:hidden">
+                                <button onClick={toggleMenu} className="focus:outline-none">
+                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            <ul className={`md:flex space-x-4 ${isMenuOpen ? 'block' : 'hidden'} md:block absolute md:static top-16 right-4 bg-gray-800 p-4 md:p-0 rounded-md md:rounded-none`}>
+                                <li><a href="#about" className="block hover:text-blue-400 py-2 md:py-0" onClick={() => setIsMenuOpen(false)}>About</a></li>
+                                <li><a href="#projects" className="block hover:text-blue-400 py-2 md:py-0" onClick={() => setIsMenuOpen(false)}>Projects</a></li>
+                                <li><a href="#skills" className="block hover:text-blue-400 py-2 md:py-0" onClick={() => setIsMenuOpen(false)}>Skills</a></li>
+                                <li><a href="#education" className="block hover:text-blue-400 py-2 md:py-0" onClick={() => setIsMenuOpen(false)}>Education</a></li>
+                                <li><a href="#experience" className="block hover:text-blue-400 py-2 md:py-0" onClick={() => setIsMenuOpen(false)}>Experience</a></li>
+                                <li><a href="#contact" className="block hover:text-blue-400 py-2 md:py-0" onClick={() => setIsMenuOpen(false)}>Contact</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+
+                    {/* Hero Section */}
+                    <section id="img" className="relative h-screen md:h-[120vh] sm:h-[50vh]" style={{ backgroundImage: "url('./image/img.jpg')", backgroundSize: 'fit', backgroundPosition: 'center' }} data-aos="fade-in">
+                        <div className="absolute inset-0 bg-white bg-opacity-80 flex items-center justify-center text-center">
+                            <div className="space-y-4 px-4">
+                                <h1 className="text-4xl sm:text-3xl md:text-5xl font-bold text-gray-900">Salome Onyinyechi Egwumba</h1>
+                                <p className="text-lg sm:text-base md:text-xl text-gray-700">I'm a professional front-end developer and IT specialist from Lagos, Nigeria</p>
+                                <a href="#about" className="inline-block bg-teal-500 text-white px-4 sm:px-3 md:px-6 py-2 sm:py-1 md:py-3 rounded-full hover:bg-teal-600">About Me</a>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* About Section */}
+                    <section id="about" className="py-12 sm:py-16" data-aos="fade-up">
+                        <div className="container mx-auto flex justify-center px-4">
+                            <div className="max-w-3xl">
+                                <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center bg-gray-800 text-white p-2 sm:p-3">About Me</h2>
+                                <p className="text-base sm:text-lg">
+                                    I'm Salome Onyinyechi Egwumba, a passionate front-end developer based in Lagos, Nigeria. Skilled in creating responsive, user-friendly websites, I specialize in HTML, CSS, JavaScript, Bootstrap, and Tailwind CSS to build modern web applications that prioritize performance and accessibility. I hold a B.Sc. Ed. in Computer Science Education from Micheal Okpara University of Agriculture, Umudike (2024). My notable projects include <a href="https://lpvtsolutions.com" className="text-blue-600 hover:underline">lpvtsolutions.com</a>, <a href="https://lpvtechnologies.com" className="text-blue-600 hover:underline">lpvtechnologies.com</a>, and <a href="https://leveneenergy.com" className="text-blue-600 hover:underline">leveneenergy.com</a>, which I have contributed to and managed. I am eager to contribute to organizational growth by implementing innovative IT solutions and leveraging my administrative skills.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                    {/* Career Objectives Section */}
+                    <section id="career-objectives" className="py-12 sm:py-16 bg-gray-100" data-aos="fade-up">
+                        <div className="container mx-auto flex justify-center px-4">
+                            <div className="max-w-3xl">
+                                <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center bg-gray-800 text-white p-2 sm:p-3">Career Objectives</h2>
+                                <p className="text-base sm:text-lg">
+                                    Seeking a dynamic role that merges technical expertise with administrative skills. I am eager to contribute to organizational growth by implementing innovative IT solutions. I am also interested in positions involving strategic planning, system implementation, and administrative oversight.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Projects Section */}
+                    <section id="projects" className="py-12 sm:py-16" data-aos="fade-up">
+                        <div className="container mx-auto flex justify-center px-4">
+                            <div className="max-w-3xl">
+                                <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center bg-gray-800 text-white p-2 sm:p-3">Projects</h2>
+                                <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+                                    <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md">
+                                        <h3 className="text-lg sm:text-xl font-semibold mb-2">LPVT Solutions</h3>
+                                        <p className="text-sm sm:text-base mb-3 sm:mb-4">A responsive website for a solar energy company, built with HTML, CSS, Bootstrap, JavaScript, and EmailJS for contact form functionality.</p>
+                                        <a href="https://lpvtsolutions.com" className="text-blue-600 hover:underline">Visit Site</a>
+                                    </div>
+                                    <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md">
+                                        <h3 className="text-lg sm:text-xl font-semibold mb-2">LPV Technologies</h3>
+                                        <p className="text-sm sm:text-base mb-3 sm:mb-4">A website I contributed to and managed, showcasing advanced web technologies and responsive design.</p>
+                                        <a href="https://lpvtechnologies.com" className="text-blue-600 hover:underline">Visit Site</a>
+                                    </div>
+                                    <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md">
+                                        <h3 className="text-lg sm:text-xl font-semibold mb-2">Levene Energy</h3>
+                                        <p className="text-sm sm:text-base mb-3 sm:mb-4">A website I contributed to and managed, focusing on energy solutions with dynamic features and user-friendly interface.</p>
+                                        <a href="https://leveneenergy.com" className="text-blue-600 hover:underline">Visit Site</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Skills Section */}
+                    <section id="skills" className="py-12 sm:py-16 bg-gray-100" data-aos="fade-up">
+                        <div className="container mx-auto flex justify-center px-4">
+                            <div className="max-w-3xl">
+                                <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center bg-gray-800 text-white p-2 sm:p-3">Skills</h2>
+                                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4">
+                                    <div className="bg-white p-2 sm:p-4 rounded-lg shadow-md text-center text-sm sm:text-base">HTML5</div>
+                                    <div className="bg-white p-2 sm:p-4 rounded-lg shadow-md text-center text-sm sm:text-base">CSS3</div>
+                                    <div className="bg-white p-2 sm:p-4 rounded-lg shadow-md text-center text-sm sm:text-base">JavaScript</div>
+                                    <div className="bg-white p-2 sm:p-4 rounded-lg shadow-md text-center text-sm sm:text-base">Bootstrap</div>
+                                    <div className="bg-white p-2 sm:p-4 rounded-lg shadow-md text-center text-sm sm:text-base">EmailJS</div>
+                                    <div className="bg-white p-2 sm:p-4 rounded-lg shadow-md text-center text-sm sm:text-base">Git</div>
+                                    <div className="bg-white p-2 sm:p-4 rounded-lg shadow-md text-center text-sm sm:text-base">Microsoft Office Suite</div>
+                                    <div className="bg-white p-2 sm:p-4 rounded-lg shadow-md text-center text-sm sm:text-base">Teamwork</div>
+                                    <div className="bg-white p-2 sm:p-4 rounded-lg shadow-md text-center text-sm sm:text-base">Critical Thinking</div>
+                                    <div className="bg-white p-2 sm:p-4 rounded-lg shadow-md text-center text-sm sm:text-base">Problem Solving</div>
+                                    <div className="bg-white p-2 sm:p-4 rounded-lg shadow-md text-center text-sm sm:text-base">Adaptability</div>
+                                    <div className="bg-white p-2 sm:p-4 rounded-lg shadow-md text-center text-sm sm:text-base">Communication</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Education Section */}
+                    <section id="education" className="py-12 sm:py-16" data-aos="fade-up">
+                        <div className="container mx-auto flex justify-center px-4">
+                            <div className="max-w-3xl">
+                                <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center bg-gray-800 text-white p-2 sm:p-3">Education & Certifications</h2>
+                                <div className="space-y-4 sm:space-y-6">
+                                    <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md">
+                                        <h3 className="text-lg sm:text-xl font-semibold mb-2">Micheal Okpara University of Agriculture, Umudike</h3>
+                                        <p className="text-sm sm:text-base mb-2">B.Sc. Ed. – Computer Science Education, 2024</p>
+                                    </div>
+                                    <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md">
+                                        <h3 className="text-lg sm:text-xl font-semibold mb-2">Digital Dreams ICT Academy</h3>
+                                        <p className="text-sm sm:text-base mb-2">Full Stack Web Developer, 2024</p>
+                                    </div>
+                                    <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md">
+                                        <h3 className="text-lg sm:text-xl font-semibold mb-2">Other Certifications & Trainings</h3>
+                                        <p className="text-sm sm:text-base mb-2">National Youth Service Corps (NYSC): Certification of National Service (In-view)</p>
+                                        <p className="text-sm sm:text-base">Click Network Solution Limited: Undergraduate Internship, April 2020 - October 2020</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Career Experience Section */}
+                    <section id="experience" className="py-12 sm:py-16 bg-gray-100" data-aos="fade-up">
+                        <div className="container mx-auto flex justify-center px-4">
+                            <div className="max-w-3xl">
+                                <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center bg-gray-800 text-white p-2 sm:p-3">Career Experience</h2>
+                                <div className="space-y-4 sm:space-y-6">
+                                    <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md">
+                                        <h3 className="text-lg sm:text-xl font-semibold mb-2">Digital Dreams Limited</h3>
+                                        <p className="text-sm sm:text-base mb-2">Frontend Intern, January 2024 - Present</p>
+                                        <ul className="list-disc list-inside space-y-1 sm:space-y-2 text-sm sm:text-base">
+                                            <li>Develop and maintain our websites</li>
+                                            <li>Collaborate with the design team to implement user-friendly interfaces</li>
+                                            <li>Optimize web applications for maximum speed and scalability</li>    
+                                            <li>Ensure the technical feasibility of UI/UX designs</li>
+                                            <li>Participate in code reviews and contribute to team knowledge sharing</li>
+                                            <li>Assist in website management, including updates, backups, and performance optimizationF</li>
+                                        </ul>
+                                    </div>
+                                    <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md">
+                                        <h3 className="text-lg sm:text-xl font-semibold mb-2">Muse Boutique</h3>
+                                        <p className="text-sm sm:text-base mb-2">Front Desk Officer, July 2022 - December 2023</p>
+                                        <ul className="list-disc list-inside space-y-1 sm:space-y-2 text-sm sm:text-base">
+                                            <li>Efficiently handled check-in and check-out procedures, ensuring accurate record-keeping and data confidentiality.</li>
+                                            <li>Resolved customers complaints and issues promptly and professionally.</li>
+                                            <li>Accurately handled cash transactions and balanced daily receipts.</li>
+                                            <li>Managed administrative duties, including data entry, reservations, and billing.</li>
+                                            <li>Actively listened to customers inquiries and provided personalized recommendations.</li>
+                                        </ul>
+                                    </div>
+                                    <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md">
+                                        <h3 className="text-lg sm:text-xl font-semibold mb-2">Living Word Magnet</h3>
+                                        <p className="text-sm sm:text-base mb-2">Teacher, January 2018 - January 2019</p>
+                                        <ul className="list-disc list-inside space-y-1 sm:space-y-2 text-sm sm:text-base">
+                                            <li>Developed engaging and informative lesson plans aligned with curriculum standards.</li>
+                                            <li>Implemented effective teaching strategies to maximize student learning, including a balanced approach of individual and group instruction.</li>
+                                            <li>Adapted teaching methods and materials to meet the diverse needs and interests of individual students.</li>
+                                            <li>Implemented effective classroom management strategies to create a positive and productive learning environment.</li>
+                                            <li>Stayed up-to-date with current educational trends and best practices by attending professional development courses and in-service training.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Contact Section */}
+                    <section id="contact" className="py-12 sm:py-16 shadow-lg bg-gray-50" data-aos="fade-up">
+                        <div className="container mx-auto flex justify-center px-4">
+                            <div className="max-w-xl">
+                                <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center bg-gray-800 text-white p-2 sm:p-3">Contact Me</h2>
+                                <div className="space-y-3 sm:space-y-4">
+                                    <p className="text-base sm:text-lg">Email: <a href="mailto:salome.egw@gmail.com" className="text-blue-600 hover:underline">salome.egw@gmail.com</a></p>
+                                    <p className="text-base sm:text-lg">Phone: 08107046929</p>
+                                    <p className="text-base sm:text-lg">Address: Elder Nwuba Straat, Lekki, Lagos, Nigeria</p>
+                                </div>
+                                <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4 mt-6 sm:mt-8">
+                                    <div>
+                                        <label className="block text-sm sm:text-base font-medium mb-1" htmlFor="name">Name</label>
+                                        <input
+                                            type="text"
+                                            id="name"
+                                            name="name"
+                                            value={formData.name}
+                                            onChange={handleChange}
+                                            required
+                                            className="w-full p-2 sm:p-3 border rounded-md text-sm sm:text-base"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm sm:text-base font-medium mb-1" htmlFor="email">Email</label>
+                                        <input
+                                            type="email"
+                                            id="email"
+                                            name="email"
+                                            value={formData.email}
+                                            onChange={handleChange}
+                                            required
+                                            className="w-full p-2 sm:p-3 border rounded-md text-sm sm:text-base"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm sm:text-base font-medium mb-1" htmlFor="message">Message</label>
+                                        <textarea
+                                            id="message"
+                                            name="message"
+                                            value={formData.message}
+                                            onChange={handleChange}
+                                            required
+                                            className="w-full p-2 sm:p-3 border rounded-md text-sm sm:text-base"
+                                            rows="4"
+                                        ></textarea>
+                                    </div>
+                                    <button
+                                        type="submit"
+                                        className="w-full bg-blue-600 text-white p-2 sm:p-3 rounded-md hover:bg-blue-700 text-sm sm:text-base"
+                                    >
+                                        Send Message
+                                    </button>
+                                    {status && <p className="text-center mt-2 text-sm sm:text-base">{status}</p>}
+                                </form>
+                                <p className="text-center text-sm sm:text-base mt-4">
+                                    By submitting, you agree to our <a href="#" className="text-blue-600 hover:underline">Privacy Policy</a>.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Bio-Data Section */}
+                    <section id="bio-data" className="py-12 sm:py-16 bg-gray-100" data-aos="fade-up">
+                        <div className="container mx-auto flex justify-center px-4">
+                            <div className="max-w-xl">
+                                <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center bg-gray-800 text-white p-2 sm:p-3">Bio-Data</h2>
+                                <div className="space-y-3 sm:space-y-4">
+                                    <p className="text-base sm:text-lg"><span className="font-semibold">Sex:</span> Female</p>
+                                    <p className="text-base sm:text-lg"><span className="font-semibold">Nationality:</span> Nigerian</p>
+                                    <p className="text-base sm:text-lg"><span className="font-semibold">Location:</span> Lagos, Nigeria</p>
+                                    <p className="text-base sm:text-lg"><span className="font-semibold">Health Status:</span> Fit</p>
+                                    <p className="text-base sm:text-lg"><span className="font-semibold">Language Proficiency:</span> English, Yoruba, Igbo</p>
+                                    <p className="text-base sm:text-lg"><span className="font-semibold">Reference:</span> Available on request</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Footer */}
+                    <footer className="bg-gray-800 text-white p-2 sm:p-4 fixed bottom-0 w-full">
+                        <p className="text-sm sm:text-base text-center">© 2025 Salome Onyinyechi Egwumba. All rights reserved.</p>
+                    </footer>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'962a6aea884e678d',t:'MTc1MzA5Nzk2NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('script');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
